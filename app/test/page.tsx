@@ -1,16 +1,17 @@
-import { Button } from "@/components/ui/button";
+import BudgetForm from "@/components/budget/BudgetForm";
+import BudgetList from "@/components/budget/BudgetList";
 
 export default function TestPage() {
   return (
-    <div className="p-8 space-y-4">
-      <h1 className="text-3xl font-bold text-primary">
-        Tailwind + Shadcn Test
-      </h1>
-      <p className="text-muted-foreground">
-        If you can see styling and a button, youre golden.
-      </p>
-      <Button variant="default">Click Me</Button>
-      <Button variant="destructive">Delete</Button>
+    <div className="p-6 space-y-8">
+      <div>
+        <h1 className="text-xl font-bold">Add a Budget Item</h1>
+        <BudgetForm />
+      </div>
+      <div>
+        <h2 className="text-lg font-semibold">Your Budget</h2>
+        <BudgetList />
+      </div>
     </div>
   );
 }
