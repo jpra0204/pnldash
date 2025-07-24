@@ -10,8 +10,8 @@ import { Budget } from "@/types/budget";
 export default function BudgetList() {
   const { data: session, status } = useSession();
   const dispatch = useAppDispatch();
-  const { budgets, loading, error } = useAppSelector(
-    (state: RootState) => state.budgets
+  const { budget, loading, error } = useAppSelector(
+    (state: RootState) => state.budget
   );
 
   useEffect(() => {
@@ -20,13 +20,13 @@ export default function BudgetList() {
     }
   }, [status, session?.user?.id]);
 
-  if (loading) return <p>Loading budgets...</p>;
+  if (loading) return <p>Loading budget...</p>;
   if (error) return <p>Error: {error}</p>;
-  if (!budgets.length) return <p>No budget items yet.</p>;
+  if (!budget.length) return <p>No budget items yet.</p>;
 
   return (
     <ul className="space-y-2 mt-4">
-      {budgets.map((b: Budget) => (
+      {budget.map((b: Budget) => (
         <li key={b.id}>
           <strong>{b.name}</strong> ({b.category}): ${b.amount}
           {b.is_recurring ? " (recurring)" : ""}

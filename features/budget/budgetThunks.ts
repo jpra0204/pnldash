@@ -6,9 +6,9 @@ export const fetchBudget = createAsyncThunk<
   Budget[],
   string,
   { rejectValue: string }
->("budgets/fetchBudgets", async (userId, { rejectWithValue }) => {
+>("budget/fetchBudget", async (userId, { rejectWithValue }) => {
   const { data, error } = await supabase
-    .from("budgets")
+    .from("budget")
     .select("*")
     .eq("user_id", userId)
     .order("created_at", { ascending: false });
@@ -21,9 +21,9 @@ export const addBudget = createAsyncThunk<
   Budget[],
   Omit<Budget, "id" | "created_at" | "updated_at">,
   { rejectValue: string }
->("budgets/addBudget", async (budget, { rejectWithValue }) => {
+>("budget/addBudget", async (budget, { rejectWithValue }) => {
   const { data, error } = await supabase
-    .from("budgets")
+    .from("budget")
     .insert([budget])
     .select();
 
@@ -38,9 +38,9 @@ export const updateBudget = createAsyncThunk<
     data: Partial<Omit<Budget, "id" | "created_at" | "updated_at">>;
   },
   { rejectValue: string }
->("budgets/updateBudget", async ({ id, data }, { rejectWithValue }) => {
+>("budget/updateBudget", async ({ id, data }, { rejectWithValue }) => {
   const { data: updated, error } = await supabase
-    .from("budgets")
+    .from("budget")
     .update(data)
     .eq("id", id)
     .select();
@@ -55,8 +55,8 @@ export const deleteBudget = createAsyncThunk<
   string,
   string,
   { rejectValue: string }
->("budgets/deleteBudget", async (id, { rejectWithValue }) => {
-  const { error } = await supabase.from("budgets").delete().eq("id", id);
+>("budget/deleteBudget", async (id, { rejectWithValue }) => {
+  const { error } = await supabase.from("budget").delete().eq("id", id);
 
   if (error) return rejectWithValue(error.message);
   return id;

@@ -7,19 +7,19 @@ import {
   deleteBudget,
 } from "./budgetThunks";
 
-interface BudgetsState {
-  budgets: Budget[];
+interface BudgetState {
+  budget: Budget[];
   loading: boolean;
   error: string | null;
 }
 
-const initialState: BudgetsState = {
-  budgets: [],
+const initialState: BudgetState = {
+  budget: [],
   loading: false,
   error: null,
 };
 
-const budgetsSlice = createSlice({
+const budgetSlice = createSlice({
   name: "budget",
   initialState,
   reducers: {},
@@ -32,18 +32,18 @@ const budgetsSlice = createSlice({
       .addCase(
         fetchBudget.fulfilled,
         (state, action: PayloadAction<Budget[]>) => {
-          state.budgets = action.payload;
+          state.budget = action.payload;
           state.loading = false;
         }
       )
       .addCase(fetchBudget.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload || "Failed to fetch budgets";
+        state.error = action.payload || "Failed to fetch budget";
       })
       .addCase(
         addBudget.fulfilled,
         (state, action: PayloadAction<Budget[]>) => {
-          state.budgets = [action.payload[0], ...state.budgets];
+          state.budget = [action.payload[0], ...state.budget];
         }
       )
       .addCase(addBudget.rejected, (state, action) => {
@@ -51,15 +51,15 @@ const budgetsSlice = createSlice({
       })
       .addCase(updateBudget.fulfilled, (state, action) => {
         const updated = action.payload[0];
-        const index = state.budgets.findIndex((b) => b.id === updated.id);
+        const index = state.budget.findIndex((b) => b.id === updated.id);
         if (index !== -1) {
-          state.budgets[index] = updated;
+          state.budget[index] = updated;
         }
       })
       .addCase(deleteBudget.fulfilled, (state, action) => {
-        state.budgets = state.budgets.filter((b) => b.id !== action.payload);
+        state.budget = state.budget.filter((b) => b.id !== action.payload);
       });
   },
 });
 
-export default budgetsSlice.reducer;
+export default budgetSlice.reducer;

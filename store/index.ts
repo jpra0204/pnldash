@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { useDispatch, useSelector } from "react-redux";
-import budgetsReducer from "@/features/budget/budgetSlice";
+import budgetReducer from "@/features/budget/budgetSlice";
 
 export const store = configureStore({
   reducer: {
-    budgets: budgetsReducer,
+    budget: budgetReducer,
   },
 });
 

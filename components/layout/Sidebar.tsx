@@ -1,6 +1,11 @@
 "use client";
 
-import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerTrigger,
+  DrawerTitle,
+} from "@/components/ui/drawer";
 import { useState, useEffect } from "react";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 import Link from "next/link";
@@ -26,7 +31,7 @@ export function Sidebar() {
 
   const navItems = [
     { label: "Dashboard", href: "/dashboard" },
-    { label: "Budgets", href: "/dashboard/budgets" },
+    { label: "Budget", href: "/dashboard/budget" },
     { label: "Revenues", href: "/dashboard/revenues" },
     // Add more links as needed
   ];
@@ -117,6 +122,7 @@ export function Sidebar() {
         <span className="text-2xl">☰</span>
       </DrawerTrigger>
       <DrawerContent className="h-full w-64 bg-[var(--sidebar)] text-[var(--sidebar-foreground)]">
+        <DrawerTitle className="sr-only">Mobile Navigation</DrawerTitle>
         {sidebarContent}
       </DrawerContent>
     </Drawer>
