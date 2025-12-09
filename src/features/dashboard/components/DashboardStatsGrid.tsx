@@ -7,7 +7,7 @@ import {
   HomeIcon,
   UsersIcon,
 } from "@heroicons/react/24/outline";
-import StatCard from "./StatCard";
+import DashboardStatCard from "./DashboardStatCard";
 
 export type Stat = {
   label: string;
@@ -64,11 +64,15 @@ const defaultStats: Stat[] = [
   },
 ];
 
-export default function StatsGrid({ stats = defaultStats }: { stats?: Stat[] }) {
+export default function DashboardStatsGrid({
+  stats = defaultStats,
+}: {
+  stats?: Stat[];
+}) {
   return (
     <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
       {stats.map((stat) => (
-        <StatCard key={stat.label} {...stat} />
+        <DashboardStatCard key={stat.label} {...stat} />
       ))}
     </section>
   );

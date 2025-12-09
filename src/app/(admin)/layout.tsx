@@ -2,8 +2,9 @@
 
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import Sidebar from "./dashboard/components/Sidebar";
-import TopNavbar from "./dashboard/components/TopNavbar";
+import AdminSidebar from "@/components/layout/AdminSidebar";
+import AdminTopbar from "@/components/layout/AdminTopbar";
+import PageShell from "@/components/layout/PageShell";
 
 export default function AdminLayout({
   children,
@@ -14,8 +15,8 @@ export default function AdminLayout({
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div className="relative flex min-h-screen bg-[#f6f8fb] text-slate-900">
-      <Sidebar
+    <div className="relative flex min-h-screen bg-[var(--background)] text-[var(--foreground)] transition-colors">
+      <AdminSidebar
         activePath={pathname}
         isOpen={isSidebarOpen}
         onClose={() => setIsSidebarOpen(false)}
@@ -28,13 +29,11 @@ export default function AdminLayout({
         />
       ) : null}
       <div className="flex min-h-screen flex-1 flex-col md:pl-64">
-        <TopNavbar
+        <AdminTopbar
           title="Dashboard"
           onToggleSidebar={() => setIsSidebarOpen((prev) => !prev)}
         />
-        <main className="flex-1 overflow-y-auto px-4 pb-10 pt-4 md:px-8 lg:px-10">
-          {children}
-        </main>
+        <PageShell>{children}</PageShell>
       </div>
     </div>
   );
