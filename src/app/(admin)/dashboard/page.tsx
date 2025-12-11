@@ -4,13 +4,23 @@ import DashboardPieCard from "@/features/dashboard/components/DashboardPieCard";
 import DashboardRecentTable from "@/features/dashboard/components/DashboardRecentTable";
 import DashboardStatsGrid from "@/features/dashboard/components/DashboardStatsGrid";
 import DashboardTrafficCard from "@/features/dashboard/components/DashboardTrafficCard";
+import { createSupabaseServerClient } from "@/lib/supabase/server-client";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Main Dashboard | Horizon",
   description: "Admin dashboard inspired by Horizon UI",
 };
 
-export default function DashboardPage() {
+export default async function DashboardPage() {
+  const supabase = await createSupabaseServerClient();
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session) {
+    redirect("/auth/sign-in");
+  }
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-1">
